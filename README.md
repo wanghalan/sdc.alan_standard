@@ -1,2 +1,3 @@
 # sdc.alan_standard
-A series of test based on my conceptual understanding to enforce standardization across repositories I am in charge of
+
+A proposal for minimum standards I use to self-enforce quality across pushes to my main repository
