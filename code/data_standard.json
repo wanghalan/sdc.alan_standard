@@ -10,6 +10,6 @@
     "GEOID_COLS": [
         "geoid"
     ],
-    "VALID_DATA_FILE_NAME_PATTERN": "[0-9]{4}_fips-[0-9]{2,15}_measure-[a-z_]{1,}_rows-[0-9]{1,}.csv.xz$",
+    "VALID_DATA_FILE_NAME_PATTERN": "[0-9]{4}_fips-[0-9]{2,15}_measure-[a-z-]{1,}_rows-[0-9]{1,}.csv.xz$",
     "__comment": "Default standard for a repository. If a .standard.json file exists in a repository at the root, this standard is overwritten."
 }
