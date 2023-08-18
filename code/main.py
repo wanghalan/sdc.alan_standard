@@ -64,13 +64,16 @@ def main(root_dir):
         if os.path.isfile(f)  # because it is possible to name a directory .csv.xz
     ]
     if len(data_files) <= 0:
-        print("No files math in %s" % pathlib.Path(root_dir).resolve())
+        # print("No files math in %s" % pathlib.Path(root_dir).resolve())
         return
 
     pbar = tqdm(data_files)
-    valid_files = []
+
+    invalid_report ={}
     valid_count = 0
     for file in pbar:
+        filepath = str(file.resolve())
+        invalid_report[filepath] = []
         pbar.set_description("Validating: %s" % str(file.resolve()))
         checks = check_main()
 
@@ -78,16 +81,18 @@ def main(root_dir):
         for k in checks:
             if not k in data_standard:
                 continue
-            valid = checks[k](file, data_standard)
+            valid = checks[k](file, data_standard) # run the function that checks given arguments file, data_standard
+
             if not valid:
-                print("\tChecking {key}, status: {status}".format(key=k, status=valid))
+                invalid_report[filepath].append(k)
             final_status = final_status and valid
+        
         if final_status:
-            valid_count += 1
-        valid_files.append([str(file.resolve()), final_status])
+            valid_count+= 1
 
     # pprint(valid_files)
-    compliance_perc = valid_count / len(valid_files) * 100
+    compliance_perc = valid_count / len(data_files) * 100
+    pprint(invalid_report)
     print("-" * 80)
     print("Total compliance percentage: %.2f%%" % compliance_perc)
     return compliance_perc == 100
